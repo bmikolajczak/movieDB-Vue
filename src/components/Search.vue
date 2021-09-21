@@ -2,14 +2,15 @@
   <div class="search">
       <h1>Search</h1>
       <input type="text" v-model="query" @keyup="getResult(query)">
-      <div v-for="result in results" :key="result.id" @click="showInfo(result)">
-          <p>{{result.title}}</p>
-          <p>Popularity: {{result.popularity}}</p>
-          <p>Vote Count: {{result.vote_count}}</p>
-          <p>Genre: </p>
-          <img :src="'http://image.tmdb.org/t/p/w500/'+ result.poster_path" style="width:150px">  
+    <section class="movie-list">
+        <div class="movie-item"
+        v-for="result in results" :key="result.id" @click="showInfo(result)">
+            <img :src="'http://image.tmdb.org/t/p/w500/'+ result.poster_path" style="width:150px">
+            <p>{{result.title}}</p>
+            <p>Popularity: {{result.popularity}}</p>
+            <p>Vote Count: {{result.vote_count}}</p>  
         </div>
-        
+    </section>
     </div>
   <app-detail :movie="currentMovie" :movieGenre="movieGenre"/>
 </template>
@@ -44,16 +45,38 @@ export default {
             this.currentMovie=result;
             console.log(this.currentMovie.id, this.currentMovie.overview);
             console.log(`Modal status: ${this.$store.state.showDetail}`);
+            
             axios.get(`https://api.themoviedb.org/3/movie/${this.currentMovie.id}?api_key=6dcc216133b93aa7fd311eb61b2980ac`)
             .then(response=>{
                 console.log(response.status, response.data.genres)
                 this.movieGenre=response.data.genres;
                 this.movieGenre.forEach(elem=>console.log(elem.name))})
             .catch(err=>console.log(err));
-            //console.log(`Genre details: ${this.movieGenre}`);
+
             this.$store.commit('toggleDetail');
         },
 
     }
 }
 </script>
+
+<style >
+.movie-list{
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+.movie-item{
+    background: rgb(21, 82, 54);
+    width: 20rem;
+    max-height: 50rem;
+    margin: 0 .2rem .3rem 0;
+    border-radius: .2rem;
+}
+.movie-item img{
+    width: 100%;
+}
+</style>
