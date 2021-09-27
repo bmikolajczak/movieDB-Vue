@@ -1,7 +1,15 @@
 <template>
   <div class="search">
       <h1>Search</h1>
-      <input type="text" v-model="query" @keyup="getResult(query)">
+      <input type="text" v-model="query" @keyup="getResult(query)" placeholder="Search for movie">
+      <br>
+      <label for="sort">Sort by:</label>
+      <select name="sort" v-model="sortOption">
+          <option value="alpha">Title</option>
+          <option value="popular">Populatiry</option>
+          <option value="vote_count">Vote Count</option>
+      </select>
+      
     <section class="movie-list">
         <div class="movie-item"
         v-for="result in results" :key="result.id" @click="showInfo(result)">
@@ -28,6 +36,7 @@ export default {
             query: '',
             results: '',
             movieGenre: '',
+            sortOption:'',
             currentMovie:{},
         }
     },
@@ -38,7 +47,35 @@ export default {
         ...mapMutations(['toggleDetail']),
         getResult(query){
             axios.get(`https://api.themoviedb.org/3/search/movie?api_key=6dcc216133b93aa7fd311eb61b2980ac&query=${query}`)
-            .then(response => {this.results = response.data.results});
+            .then(response => {
+                this.results = response.data.results;
+                if(this.sortOption=='alpha')
+                {
+                    //alphapetical sort
+                    this.results.sort((a,b)=>{
+                        let aTitle= a.title.toLowerCase();
+                        let bTitle= b.title.toLowerCase();
+                        if(aTitle < bTitle) {
+                            return -1;
+                        }
+                        if(aTitle > bTitle) {
+                            return 1;
+                        }
+                        return 0;
+                    }) 
+                }
+                if(this.sortOption=='popular'){
+                    // sort by popularity
+                    this.results.sort((a,b)=> b.popularity-a.popularity);
+                }
+                if(this.sortOption=='vote_count'){
+                    // sort by vote count
+                    this.results.sort((a,b)=>{
+                        b.vote_count-a.vote_count;
+                    });
+                }
+                
+                });
             console.log(this.results);
         },
         showInfo(result){
@@ -55,6 +92,7 @@ export default {
 
             this.$store.commit('toggleDetail');
         },
+        
 
     }
 }
