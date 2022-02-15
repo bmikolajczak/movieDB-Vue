@@ -1,18 +1,23 @@
 <template>
   <div id="app">
+    <Header />
     <search />
+    <Auth />
   </div>
 </template>
 
 <script>
-import Search from '@/components/Search.vue';
-
+import Search from "@/components/Search.vue";
+import Header from "@/components/Header.vue";
+import Auth from "@/components/Auth.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Search,
-  }
-}
+    Header,
+    Auth,
+  },
+};
 </script>
 
 <style>
@@ -22,6 +27,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #000000;
-  margin-top: 60px;
 }
 </style>

@@ -24,11 +24,9 @@
 
 <script>
 import axios from "axios";
-import AppDetail from "@/components/Detail.vue";
 import { mapState, mapMutations } from "vuex";
 export default {
   name: "search",
-  components: { AppDetail },
   data() {
     return {
       apiKey: "6dcc216133b93aa7fd311eb61b2980ac",
@@ -109,14 +107,13 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 0.5em;
   align-items: center;
-  width: 100vw;
 }
 .movie-item {
   background: rgb(21, 82, 54);
   width: 20rem;
   max-height: 50rem;
-  margin: 0 0.2rem 0.3rem 0;
   border-radius: 0.2rem;
 }
 .movie-item img {
