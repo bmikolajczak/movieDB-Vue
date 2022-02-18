@@ -1,21 +1,32 @@
 <template>
   <article class="register_div">
-    <div class="login_alert" v-if="register_in_submission">
-      <h3>You are being registered</h3>
+    <div class="login_alert" v-if="!register_in_submission">
+      <h3>{{ register_message }}</h3>
     </div>
-    <form class="register_form">
+    <!-- Registration form -->
+    <vee-form class="register_form" :validation-schema="registerSchema" @submit="register">
+      <!-- Name input -->
       <label for="">Name</label>
-      <input type="text" id="name" placeholder="Enter you name" />
+      <vee-field name="name" type="text" id="name" placeholder="Enter you name" />
+      <ErrorMessage class="error" name="name" />
+      <!-- Nick name field -->
       <label for="">Nick Name</label>
-      <input type="text" id="nick_name" placeholder="Enter you nick name" />
+      <vee-field name="nick" type="text" id="nick_name" placeholder="Enter you nick name" />
+      <ErrorMessage name="nick" />
+      <!-- email field -->
       <label for="email">Email</label>
-      <input type="email" id="email" placeholder="enter your email" />
+      <vee-field name="email" type="email" id="email" placeholder="enter your email" />
+      <ErrorMessage name="email" />
+      <!-- Password field -->
       <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Enter your password" />
+      <vee-field name="password" type="password" id="password" placeholder="Enter your password" />
+      <ErrorMessage name="password" />
+      <!-- Confirm password -->
       <label for="confirm_password">Confirm password</label>
-      <input type="password" id="confirm_password" placeholder="Enter your password" />
+      <vee-field name="confirm_pass" type="password" id="confirm_password" placeholder="Enter your password" />
+      <ErrorMessage name="confirm_pass" />
       <button type="submit" :disabled="register_in_submission">Register</button>
-    </form>
+    </vee-form>
   </article>
 </template>
 
@@ -24,10 +35,32 @@ export default {
   name: "Register",
   data() {
     return {
-      register_in_submission: true,
+      register_in_submission: false,
+      register_message: "You are being registered",
+      registerSchema: {
+        name: "required|name",
+        nick: "required|nick",
+        email: "required|email",
+        password: "required|min:5",
+        confirm_pass: "confirm_password:@password",
+      },
     };
+  },
+  methods: {
+    register(values) {
+      this.register_in_submission = true;
+      this.register_message = "You are being registered";
+      console.log(values);
+      console.log(this.register_message);
+      setTimeout(() => {
+        this.register_message = "You have been succesfully registered";
+      }, 2000);
+      this.register_in_submission = false;
+    },
   },
 };
 </script>
 
-<style></style>
+<style lang="scss">
+@import "../assets/scss/RegisterForm.scss";
+</style>

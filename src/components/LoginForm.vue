@@ -1,15 +1,19 @@
 <template>
   <article class="login_div">
-    <div class="login_alert" v-if="login_in_submission">
-      <h3>You are being logged in</h3>
+    <div class="login_alert" v-if="!login_in_submission">
+      <h3>{{ login_message }}</h3>
     </div>
-    <form action="">
+    <vee-form class="login_form" :validation-schema="loginSchema" @submit="login">
+      <!-- Email input -->
       <label for="email"> Email</label>
-      <input type="email" id="email" placeholder="enter your email" />
+      <vee-field name="email" type="email" id="email" placeholder="enter your email" />
+      <ErrorMessage name="email" />
+      <!-- Password input -->
       <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Enter your password" />
+      <vee-field name="password" type="password" id="password" placeholder="Enter your password" />
+      <ErrorMessage name="password" />
       <button type="submit" :disabled="login_in_submission">Log in</button>
-    </form>
+    </vee-form>
   </article>
 </template>
 
@@ -18,14 +22,29 @@ export default {
   name: "LoginForm",
   data() {
     return {
-      show_login: true,
-      show_register: false,
-      login_in_submission: true,
+      login_in_submission: false,
+      login_message: "We are logging you in",
+      loginSchema: {
+        email: "required|email",
+        password: "required|min:5",
+      },
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    login(values) {
+      this.login_in_submission = true;
+      this.login_message = "You are being logged in";
+      console.log(values);
+      setTimeout(() => {
+        this.login_message = "You have been succesfully logged";
+      }, 2000);
+      this.login_in_submission = false;
+    },
+  },
 };
 </script>
 
-<style></style>
+<style lang="scss">
+@import "../assets/scss/LoginForm.scss";
+</style>
