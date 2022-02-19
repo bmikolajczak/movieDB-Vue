@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       register_in_submission: false,
-      register_message: "You are being registered",
+      register_message: "Register here",
       registerSchema: {
         name: "required|name",
         nick: "required|nick",
@@ -47,15 +47,22 @@ export default {
     };
   },
   methods: {
-    register(values) {
+    async register(values) {
       this.register_in_submission = true;
-      this.register_message = "You are being registered";
+      this.register_message = "You are being registered!";
       console.log(values);
       console.log(this.register_message);
-      setTimeout(() => {
-        this.register_message = "You have been succesfully registered";
-      }, 2000);
+      // creating user
+      try {
+        await this.$store.dispatch("register", values);
+      } catch (error) {
+        this.register_in_submission = false;
+        this.register_message = "OOPS someething went wrong! Please try again";
+        return;
+      }
       this.register_in_submission = false;
+      this.register_message = "You have been succesfully registered";
+      window.location.reload();
     },
   },
 };

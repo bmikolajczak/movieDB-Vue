@@ -5,10 +5,12 @@
 
       <div class="nav_links">
         <ul>
+          <li v-if="!userLoggedIn"><a href="#" @click.prevent="toggleAuthModal">Sign In/ Register</a></li>
+          <template v-else>
+            <li><a href="#" @click.prevent="signout">Log Out</a></li>
+            <li><a href="#">Profile</a></li>
+          </template>
           <li><a href="#">About</a></li>
-          <li><a href="#" @click.prevent="toggleAuthModal">Sign In/ Register</a></li>
-          <li><a href="#">Log Out</a></li>
-          <li><a href="#">Profile</a></li>
         </ul>
       </div>
     </nav>
@@ -16,11 +18,15 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapState, mapActions } from "vuex";
 export default {
   name: "Header",
+  computed: {
+    ...mapState(["userLoggedIn"]),
+  },
   methods: {
     ...mapMutations(["toggleAuthModal"]),
+    ...mapActions(["signout"]),
   },
 };
 </script>

@@ -32,14 +32,19 @@ export default {
   },
   computed: {},
   methods: {
-    login(values) {
+    async login(values) {
       this.login_in_submission = true;
       this.login_message = "You are being logged in";
       console.log(values);
-      setTimeout(() => {
-        this.login_message = "You have been succesfully logged";
-      }, 2000);
+      try {
+        await this.$store.dispatch("login", values);
+      } catch (error) {
+        this.login_message = "Invalid login details";
+        return;
+      }
+      this.login_message = "You have been succesfully logged";
       this.login_in_submission = false;
+      window.location.reload();
     },
   },
 };

@@ -17,6 +17,10 @@ export default {
     Header,
     Auth,
   },
+  created() {
+    //initialising login when app is created
+    this.$store.dispatch("init_login");
+  },
 };
 </script>
 
