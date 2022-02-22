@@ -1,16 +1,16 @@
 <template>
   <header>
     <nav>
-      <a href="#">Home page / Logo </a>
+      <router-link :to="{ name: 'home' }" exact-active-class="home-active">Home page / Logo </router-link>
 
       <div class="nav_links">
         <ul>
           <li v-if="!userLoggedIn"><a href="#" @click.prevent="toggleAuthModal">Sign In/ Register</a></li>
           <template v-else>
             <li><a href="#" @click.prevent="signout">Log Out</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><router-link :to="{ name: 'profile' }">Profile</router-link></li>
           </template>
-          <li><a href="#">About</a></li>
+          <li><router-link :to="{ name: 'about' }">About</router-link></li>
         </ul>
       </div>
     </nav>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState, mapActions } from "vuex";
+import { mapMutations, mapState } from "vuex";
 export default {
   name: "Header",
   computed: {
@@ -26,7 +26,12 @@ export default {
   },
   methods: {
     ...mapMutations(["toggleAuthModal"]),
-    ...mapActions(["signout"]),
+    async signout() {
+      await this.$store.dispatch("signout");
+      if (this.$route.meta.requiresAuth) {
+        this.$router.push({ name: "home" });
+      }
+    },
   },
 };
 </script>

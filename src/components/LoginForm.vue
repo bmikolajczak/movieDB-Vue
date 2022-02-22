@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       login_in_submission: false,
-      login_message: "We are logging you in",
+      login_message: "Log in to app",
       loginSchema: {
         email: "required|email",
         password: "required|min:5",
@@ -42,6 +42,7 @@ export default {
         this.login_message = "Invalid login details";
         return;
       }
+
       this.login_message = "You have been succesfully logged";
       this.login_in_submission = false;
       window.location.reload();

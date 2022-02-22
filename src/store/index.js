@@ -38,7 +38,9 @@ export default createStore({
       }
     },
     async login({ commit }, payload) {
-      await auth.signInWithEamilAndPassword(payload.email, payload.password);
+      console.log("action fired");
+      await auth.signInWithEmailAndPassword(payload.email, payload.password);
+      console.log("request to firebase fired");
       commit("toggleAuth");
     },
     async signout({ commit }) {
