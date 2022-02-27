@@ -3,8 +3,9 @@ import { auth, usersCollection } from "@/includes/firebase";
 
 export default createStore({
   state: {
-    showAuthModal: true,
+    showAuthModal: false,
     userLoggedIn: false,
+    movie: {},
   },
   mutations: {
     toggleAuthModal: (state) => {
@@ -12,6 +13,9 @@ export default createStore({
     },
     toggleAuth: (state) => {
       state.userLoggedIn = !state.userLoggedIn;
+    },
+    setMovie: (state, payload) => {
+      state.movie = payload;
     },
   },
   actions: {
@@ -47,6 +51,9 @@ export default createStore({
       await auth.signOut();
 
       commit("toggleAuth");
+    },
+    setMovieInfo({ commit }, payload) {
+      commit("setMovie", payload);
     },
   },
 });

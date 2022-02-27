@@ -11,20 +11,26 @@
     </select>
 
     <section class="movie-list">
-      <div class="movie-item" v-for="result in results" :key="result.id" @click="showInfo(result)">
-        <img :src="'http://image.tmdb.org/t/p/w500/' + result.poster_path" style="width:150px" />
+      <div class="movie-item" v-for="result in results" :key="result.id">
+        <img
+          :src="'http://image.tmdb.org/t/p/w500/' + result.poster_path"
+          style="width:150px"
+          @click.prevent="showInfo(result)"
+        />
         <p>{{ result.title }}</p>
         <p>Popularity: {{ result.popularity }}</p>
         <p>Vote Count: {{ result.vote_count }}</p>
+        <button @click.prevent="addToFavs(result)">Add to favourites</button>
       </div>
     </section>
   </div>
-  <app-detail :movie="currentMovie" :movieGenre="movieGenre" />
 </template>
 
 <script>
 import axios from "axios";
-import { mapState, mapMutations } from "vuex";
+// import { mapState } from "vuex";
+import { usersCollection, auth } from "../includes/firebase";
+import firebase from "firebase";
 export default {
   name: "search",
   data() {
@@ -37,11 +43,8 @@ export default {
       currentMovie: {},
     };
   },
-  computed: {
-    ...mapState(["showDetail"]),
-  },
+  computed: {},
   methods: {
-    ...mapMutations(["toggleDetail"]),
     getResult(query) {
       axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${this.apiKey}&query=${query}`).then((response) => {
         this.results = response.data.results;
@@ -51,21 +54,18 @@ export default {
       });
       console.log(this.results);
     },
-    showInfo(result) {
+    async showInfo(result) {
       this.currentMovie = result;
       console.log(this.currentMovie.id, this.currentMovie.overview);
-      console.log(`Modal status: ${this.$store.state.showDetail}`);
-
-      axios
+      await axios
         .get(`https://api.themoviedb.org/3/movie/${this.currentMovie.id}?api_key=6dcc216133b93aa7fd311eb61b2980ac`)
         .then((response) => {
-          console.log(response.status, response.data.genres);
-          this.movieGenre = response.data.genres;
-          this.movieGenre.forEach((elem) => console.log(elem.name));
+          console.log("info z 2 calla", response.data, response.data.genres);
+          this.$store.dispatch("setMovieInfo", response.data);
         })
         .catch((err) => console.log(err));
-
-      this.$store.commit("toggleDetail");
+      // console.log("movie in state", this.$store.state.movie, this.$store.state.movie.title);
+      this.$router.push({ name: "movie", params: { id: `${this.currentMovie.id}` } });
     },
     sortResults() {
       if (this.sortOption == "alpha") {
@@ -95,6 +95,23 @@ export default {
         this.results.sort((a, b) => {
           b.vote_count - a.vote_count;
         });
+      }
+    },
+    async addToFavs(movie) {
+      console.log("filmik", movie);
+      const film = {
+        title: movie.title,
+        poster: movie.poster_path,
+        popularity: movie.popularity,
+      };
+      console.log(film);
+      try {
+        await usersCollection.doc(auth.currentUser.uid).update({
+          movies: firebase.firestore.FieldValue.arrayUnion(film),
+        });
+        console.log("movie added");
+      } catch (error) {
+        console.log(error);
       }
     },
   },

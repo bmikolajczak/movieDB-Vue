@@ -1,12 +1,21 @@
 <template>
   <div class="auth_modal" :class="{ hidden: !showAuthModal }">
-    <button @click.prevent="toggleAuthModal">Close modal</button>
-    <ul class="tabs">
-      <li class="tab"><a href="#" @click.prevent="tab = 'login'">Login</a></li>
-      <li class="tab"><a href="#" @click.prevent="tab = 'register'">Register</a></li>
-    </ul>
-    <LoginForm v-if="tab === 'login'" />
-    <RegisterForm v-else />
+    <div class="auth_window">
+      <div class="modal_header">
+        <h3>{{ tab }}</h3>
+        <button id="modal_close" @click.prevent="toggleAuthModal">Close modal</button>
+      </div>
+      <ul class="tabs">
+        <li class="tab">
+          <a href="#" @click.prevent="tab = 'login'">Login</a>
+        </li>
+        <li class="tab">
+          <a href="#" @click.prevent="tab = 'register'">Register</a>
+        </li>
+      </ul>
+      <LoginForm v-if="tab === 'login'" />
+      <RegisterForm v-else />
+    </div>
   </div>
 </template>
 
@@ -34,8 +43,6 @@ export default {
 };
 </script>
 
-<style>
-.hidden {
-  display: none;
-}
+<style lang="scss">
+@import "../assets/scss/Auth.scss";
 </style>

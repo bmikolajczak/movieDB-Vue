@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import store from "./store";
 import router from "./router";
-import "./assets/scss/Global_vars.scss";
+// import "./assets/scss/Global_vars.scss";
 import VeeValidatePlugin from "./includes/validation.js";
 import { auth } from "./includes/firebase";
 

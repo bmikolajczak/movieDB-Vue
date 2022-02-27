@@ -1,9 +1,16 @@
-$color: orange;
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap");
+
+$header-font: "Chakra Petch", sans-serif;
+$bodycopy-font: "Poppins", sans-serif;
+$off-white: rgb(247, 238, 238);
+$bg-submit: rgb(48, 172, 230);
 
 .orange-class {
-  color: $color;
+  color: orange;
+  font-family: $header-font;
 }
 .home-active {
   color: rgb(28, 190, 177);
+  font-family: $header-font;
   font-weight: 700;
 }

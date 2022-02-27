@@ -1,5 +1,5 @@
 <template>
-  <article class="register_div">
+  <section class="register_div">
     <div class="login_alert" v-if="!register_in_submission">
       <h3>{{ register_message }}</h3>
     </div>
@@ -25,9 +25,9 @@
       <label for="confirm_password">Confirm password</label>
       <vee-field name="confirm_pass" type="password" id="confirm_password" placeholder="Enter your password" />
       <ErrorMessage name="confirm_pass" />
-      <button type="submit" :disabled="register_in_submission">Register</button>
+      <button class="submit" type="submit" :disabled="register_in_submission">Register</button>
     </vee-form>
-  </article>
+  </section>
 </template>
 
 <script>
@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       register_in_submission: false,
-      register_message: "Register here",
+      register_message: "",
       registerSchema: {
         name: "required|name",
         nick: "required|nick",
@@ -67,7 +67,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-@import "../assets/scss/RegisterForm.scss";
-</style>

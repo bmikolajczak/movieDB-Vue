@@ -1,0 +1,106 @@
+.auth_modal {
+  //   background-color: rgba(0, 0, 0, 0.233);
+  position: absolute;
+  display: grid;
+  place-items: center;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  font-family: $bodycopy-font;
+  button {
+    @include button;
+  }
+}
+.hidden {
+  display: none;
+}
+.auth_window {
+  @include glassmorphism;
+  width: 100%;
+  padding: 1em 0;
+  display: flex;
+  flex-direction: column;
+  ul {
+    margin-top: 2em;
+    padding: 0.125em 0.3em;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+    li {
+      transition: linear 0.3s;
+      @include button;
+      background-color: $off-white;
+      flex-basis: 50%;
+      text-align: center;
+      a {
+        text-decoration: none;
+        color: black;
+      }
+    }
+  }
+  input {
+    @include input;
+  }
+}
+.tab:hover {
+  background-color: $bg-submit;
+  a {
+    color: $off-white;
+  }
+}
+.modal_header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.3em;
+  h3 {
+    font-family: $header-font;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.5em;
+  }
+}
+#modal_close {
+  background-color: rgb(226, 70, 70);
+  color: $off-white;
+}
+.submit {
+  transition: linear 0.3s;
+  background-color: $bg-submit;
+  color: $off-white;
+  &:hover {
+    background-color: darken($color: $bg-submit, $amount: 6);
+  }
+}
+
+/*LOGIN FORM*/
+.login_form {
+  @include label;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+
+  input + button {
+    margin-top: 1em;
+  }
+}
+.login_alert {
+  padding: 1em 0 0;
+  text-align: center;
+  font-style: italic;
+}
+
+/*REGISTER FORM*/
+.register_form {
+  @include label;
+  display: flex;
+  flex-direction: column;
+  input + button {
+    margin-top: 1em;
+  }
+}
+.error {
+  color: red;
+}
+
+/*MEDIA QUERIES*/

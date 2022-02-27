@@ -12,7 +12,7 @@
       <label for="password">Password</label>
       <vee-field name="password" type="password" id="password" placeholder="Enter your password" />
       <ErrorMessage name="password" />
-      <button type="submit" :disabled="login_in_submission">Log in</button>
+      <button class="submit" type="submit" :disabled="login_in_submission">Log in</button>
     </vee-form>
   </article>
 </template>
@@ -50,7 +50,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-@import "../assets/scss/LoginForm.scss";
-</style>

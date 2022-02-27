@@ -1,0 +1,29 @@
+@mixin button {
+  padding: 0.7em 0.5em;
+  border-radius: 3em;
+  border: none;
+  font-family: $bodycopy-font;
+  font-weight: 700;
+}
+@mixin input {
+  font-family: $bodycopy-font;
+  font-size: 1em;
+  font-weight: 700;
+  padding: 0.5em 0.5em;
+  border-radius: 3em;
+  border: none;
+}
+@mixin label {
+  label {
+    font-size: 1.3em;
+    align-self: flex-start;
+  }
+}
+@mixin glassmorphism {
+  background: linear-gradient(135deg, rgba(226, 46, 70, 0.363), rgba(30, 27, 231, 0.349));
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(2px);
+  border: 1px solid rgba(187, 175, 175, 0.3);
+}
