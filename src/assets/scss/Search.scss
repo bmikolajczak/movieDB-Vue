@@ -1,0 +1,54 @@
+/*HERO*/
+.search {
+  background: linear-gradient(135deg, rgba(226, 46, 70, 0.363), rgba(30, 27, 231, 0.349));
+}
+.search-header {
+  text-align: center;
+  font-family: $bodycopy-font;
+  h1 {
+    font-family: $header-font;
+    font-size: 4em;
+  }
+  input,
+  select {
+    @include input;
+  }
+}
+input ~ select {
+  margin: 1.5em 0 1em;
+}
+/*LIST OF MOVIES*/
+.movie-list {
+  font-family: $bodycopy-font;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, 350px);
+  gap: 0.5em;
+  width: 100vh;
+}
+.movie-item {
+  padding-right: 0.3em;
+  display: flex;
+  gap: 30px;
+  background: rgb(248, 252, 248);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 1em;
+  overflow: hidden;
+  img {
+    max-width: 150px;
+    cursor: pointer;
+  }
+  button {
+    @include button;
+    padding: 0.4em 0.3em;
+    margin-top: auto;
+    background-color: $bg-submit;
+  }
+}
+.desc {
+  padding-bottom: 0.312em;
+  align-self: center;
+  h3 {
+    font-family: $header-font;
+  }
+}

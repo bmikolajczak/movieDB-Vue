@@ -1,26 +1,26 @@
 <template>
   <div class="search">
-    <h1>Search</h1>
-    <input type="text" v-model="query" @keyup="getResult(query)" placeholder="Search for movie" />
-    <br />
-    <label for="sort">Sort by:</label>
-    <select name="sort" v-model="sortOption" @change="sortResults()">
-      <option value="alpha">Title</option>
-      <option value="popular">Populatiry</option>
-      <option value="vote_count">Vote Count</option>
-    </select>
+    <div class="search-header">
+      <h1>Search</h1>
+      <input type="text" v-model="query" @keyup="getResult(query)" placeholder="Search for movie" />
+      <br />
+      <label for="sort">Sort by:</label>
+      <select name="sort" v-model="sortOption" @change="sortResults()">
+        <option value="alpha">Title</option>
+        <option value="popular">Populatiry</option>
+        <option value="vote_count">Vote Count</option>
+      </select>
+    </div>
 
     <section class="movie-list">
       <div class="movie-item" v-for="result in results" :key="result.id">
-        <img
-          :src="'http://image.tmdb.org/t/p/w500/' + result.poster_path"
-          style="width:150px"
-          @click.prevent="showInfo(result)"
-        />
-        <p>{{ result.title }}</p>
-        <p>Popularity: {{ result.popularity }}</p>
-        <p>Vote Count: {{ result.vote_count }}</p>
-        <button @click.prevent="addToFavs(result)">Add to favourites</button>
+        <img :src="'http://image.tmdb.org/t/p/w500/' + result.poster_path" @click.prevent="showInfo(result)" />
+        <div class="desc">
+          <h3>{{ result.title }}</h3>
+          <p>Popularity: {{ result.popularity }}</p>
+          <p>Vote Count: {{ result.vote_count }}</p>
+          <button @click.prevent="addToFavs(result)">Add to favs</button>
+        </div>
       </div>
     </section>
   </div>
@@ -118,22 +118,6 @@ export default {
 };
 </script>
 
-<style>
-.movie-list {
-  padding: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5em;
-  align-items: center;
-}
-.movie-item {
-  background: rgb(21, 82, 54);
-  width: 20rem;
-  max-height: 50rem;
-  border-radius: 0.2rem;
-}
-.movie-item img {
-  width: 100%;
-}
+<style lang="scss">
+@import "../assets/scss/Search.scss";
 </style>

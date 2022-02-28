@@ -1,11 +1,23 @@
+.orange-class {
+  color: rgb(241, 180, 11);
+}
+.home-active {
+  color: rgb(28, 190, 177);
+  font-family: $header-font;
+  font-weight: 700;
+}
+
 header {
   margin: 0 1em;
+  padding: 0.3em 0.5em;
   nav {
     display: flex;
     align-items: center;
     padding: 0 2rem;
-    *:first-child {
+    #homelink {
       margin-right: auto;
+      font-size: 1.4rem;
+      text-decoration: none;
     }
     .nav_links {
       padding: 0.5rem 1rem;
@@ -14,6 +26,15 @@ header {
         gap: 2rem;
         list-style: none;
         padding: 0;
+      }
+    }
+    li {
+      font-family: $bodycopy-font;
+      a {
+        text-decoration: none;
+        &:visited {
+          color: black;
+        }
       }
     }
   }

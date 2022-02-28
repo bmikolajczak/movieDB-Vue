@@ -1,7 +1,7 @@
 <template>
   <header>
     <nav>
-      <router-link :to="{ name: 'home' }" exact-active-class="home-active">Home page / Logo </router-link>
+      <router-link id="homelink" :to="{ name: 'home' }" exact-active-class="home-active">Home page</router-link>
 
       <div class="nav_links">
         <ul>
