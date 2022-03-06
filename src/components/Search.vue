@@ -52,7 +52,7 @@ export default {
         // results sorting
         this.sortResults();
       });
-      console.log(this.results);
+      //console.log(this.results);
     },
     async showInfo(result) {
       this.currentMovie = result;
@@ -60,7 +60,7 @@ export default {
       await axios
         .get(`https://api.themoviedb.org/3/movie/${this.currentMovie.id}?api_key=6dcc216133b93aa7fd311eb61b2980ac`)
         .then((response) => {
-          console.log("info z 2 calla", response.data, response.data.genres);
+          //console.log("info z 2 calla", response.data, response.data.genres);
           this.$store.dispatch("setMovieInfo", response.data);
         })
         .catch((err) => console.log(err));
