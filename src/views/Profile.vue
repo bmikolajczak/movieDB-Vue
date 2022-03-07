@@ -1,21 +1,22 @@
 <template>
-  <h1>Profile Page</h1>
-  <h2>THIS IS PROFILE PAGE</h2>
-  <div>
-    <h3>{{ userInfo?.name }}</h3>
-    <h4>{{ userInfo?.email }}</h4>
-    <h5>{{ userInfo?.nickname }}</h5>
-  </div>
-  <section class="movie-list">
-    <div class="movie-item" v-for="(movie, index) in userInfo?.movies" :key="movie.id">
-      <img :src="'http://image.tmdb.org/t/p/w500/' + movie.poster" style="width:150px" />
-      <p>{{ movie.title }}</p>
-      <p>Popularity: {{ movie.popularity }}</p>
-      <button @click.prevent="removeFromoFavs(movie, index)">Remove from Favs</button>
+  <div class="user-page">
+    <div class="user-info">
+      <img src="../assets/user.png" alt="user picture" />
+      <p><strong>Name:</strong> {{ userInfo?.name }}</p>
+      <p><strong>Email address:</strong> {{ userInfo?.email }}</p>
+      <p><strong>Nickname:</strong> {{ userInfo?.nickname }}</p>
     </div>
-  </section>
-
-  <button @click.prevent="logInfo">Log info</button>
+    <h1>Your movies</h1>
+    <section class="movie-list">
+      <div class="movie-item" v-for="(movie, index) in userInfo?.movies" :key="movie.id">
+        <img :src="'http://image.tmdb.org/t/p/w500/' + movie.poster" style="width:150px" />
+        <div class="desc">
+          <p>{{ movie.title }}</p>
+          <button @click.prevent="removeFromoFavs(movie, index)">Remove from Favs</button>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -28,18 +29,11 @@ export default {
       userInfo: null,
     };
   },
-  // async created() {
-  //   const snapshot = await usersCollection.doc(auth.currentUser.uid).get();
-  //   this.userInfo = snapshot.data();
-  // },
   async beforeMount() {
     const snapshot = await usersCollection.doc(auth.currentUser.uid).get();
     this.userInfo = snapshot.data();
   },
   methods: {
-    logInfo() {
-      console.log("user info", this.userInfo);
-    },
     async removeFromoFavs(movie, index) {
       try {
         await usersCollection.doc(auth.currentUser.uid).update({
@@ -55,4 +49,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped lang="scss">
+@import "../assets/scss/Profile.scss";
+</style>
