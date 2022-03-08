@@ -1,0 +1,34 @@
+.about {
+  min-height: 100vh;
+  padding: 3em;
+}
+h1 {
+  color: $off-white;
+  text-align: center;
+  font-family: $header-font;
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+.logos {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1.5em;
+  margin: 0 0 2em;
+  img {
+    width: 200px;
+  }
+  img:nth-child(3) {
+    width: 150px;
+  }
+}
+.paragraphs {
+  margin: 0 auto;
+  width: max-content;
+  p {
+    margin-bottom: 0.5em;
+    font-size: 1em;
+    font-family: $bodycopy-font;
+    color: $off-white;
+  }
+}
